@@ -23,6 +23,10 @@ public class BookingManager {
     }
 
     public void book(String eventId, String userId, double amount) {
-        // empty for now (TDD!)
+        if (repo.isSoldOut(eventId)) return;
+
+        payment.processPayment(amount);
+        repo.saveBooking(eventId, userId);
+        notification.sendConfirmation("Booking successful");
     }
 }

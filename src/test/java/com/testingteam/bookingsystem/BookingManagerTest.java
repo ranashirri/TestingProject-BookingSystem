@@ -6,8 +6,8 @@ package com.testingteam.bookingsystem;
 
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
-
 /**
  *
  * @author DELL
@@ -18,9 +18,9 @@ public class BookingManagerTest {
     @Test
     public void testHappyPath() {
 
-    IPaymentGateway payment = mock(IPaymentGateway.class);
-    INotificationService notification = mock(INotificationService.class);
-    IEventRepository repo = mock(IEventRepository.class);
+    IPaymentGateway payment = Mockito.mock(IPaymentGateway.class);
+    INotificationService notification = Mockito.mock(INotificationService.class);
+    IEventRepository repo = Mockito.mock(IEventRepository.class);
 
     when(repo.isSoldOut("E1")).thenReturn(false);
     when(payment.processPayment(100)).thenReturn("TX123");
@@ -32,9 +32,5 @@ public class BookingManagerTest {
     verify(repo, times(1)).saveBooking("E1", "U1");
     verify(notification, times(1)).sendConfirmation(anyString());
     }
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+
 }
